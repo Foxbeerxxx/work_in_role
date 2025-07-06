@@ -81,96 +81,65 @@ ansible-galaxy init lighthouse-role
 
 ```
 
-8. ` `
-9. ` `
-
-
-
-
-
-
-
-
+8. ` Открою tasks/main.yml и напишу наполнение`
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+- name: Установить git
+  yum:
+    name: git
+    state: present
+
+- name: Клонировать LightHouse
+  git:
+    repo: "https://github.com/VKCOM/lighthouse.git"
+    dest: "/var/www/lighthouse"
+
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-`
+9. ` Инициализирую git в каждой роли`
+
+```
+cd vector-role
+git init
+git remote add origin git@github.com:foxbeerxxx/vector-role.git
+git add .
+git commit -m "initial commit"
+git push -u origin master
+```
+![2](https://github.com/Foxbeerxxx/work_in_role/blob/main/img/img2.png)
+![3](https://github.com/Foxbeerxxx/work_in_role/blob/main/img/img3.png)
 
 
+10. `То же самое проделаю для lighthouse-role и work_in_role`
+11. ` Обновляю requirements.yml`
+
+```
 ---
+- src: git@github.com:AlexeySetevoi/ansible-clickhouse.git
+  scm: git
+  version: "1.13"
+  name: clickhouse
 
-### Задание 2
+- src: git@github.com:foxbeerxxx/vector-role.git
+  scm: git
+  version: "1.0.0"
+  name: vector
 
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
-
-
----
-
-### Задание 3
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+- src: git@github.com:foxbeerxxx/lighthouse-role.git
+  scm: git
+  version: "1.0.0"
+  name: lighthouse
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
-```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+12. `И снова: ansible-galaxy install -r requirements.yml`
+![4](https://github.com/Foxbeerxxx/work_in_role/blob/main/img/img4.png)
 
-### Задание 4
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+13. `все что у меня получилось`
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+Ссылки:
+https://github.com/Foxbeerxxx/vector-role
+https://github.com/Foxbeerxxx/lighthouse-role
+https://github.com/Foxbeerxxx/work_in_role
 ```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
