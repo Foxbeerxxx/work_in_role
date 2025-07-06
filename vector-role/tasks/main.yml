@@ -1,0 +1,23 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for vector-role
+- name: Установить Vector
+  get_url:
+    url: "https://packages.timber.io/vector/latest/vector-x86_64.rpm"
+    dest: "/tmp/vector.rpm"
+
+- name: Установить пакет Vector
+  yum:
+    name: "/tmp/vector.rpm"
+
+- name: Создать конфиг Vector
+  template:
+    src: vector.toml.j2
+    dest: /etc/vector/vector.toml
+    mode: "0644"
+
+- name: Запустить Vector
+  service:
+    name: vector
+    enabled: true
+    state: started

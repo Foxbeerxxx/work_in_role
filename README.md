@@ -21,10 +21,76 @@ ansible-galaxy install -r requirements.yml --force
 ```
 ![1](https://github.com/Foxbeerxxx/work_in_role/blob/main/img/img1.png)
 
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+3. `Теперь создаю файл site.yml (основной playbook)`
+```
+- hosts: all
+  become: true
+  roles:
+    - clickhouse
+    - vector
+    - lighthouse
+
+```
+
+4. `Создаёю роль Vector`
+```
+ansible-galaxy init vector-role
+
+```
+
+5. `Захожу в нее , потом в  файл tasks/main.yml и добавляю туда:`
+
+```
+- name: Установить Vector
+  get_url:
+    url: "https://packages.timber.io/vector/latest/vector-x86_64.rpm"
+    dest: "/tmp/vector.rpm"
+
+- name: Установить пакет Vector
+  yum:
+    name: "/tmp/vector.rpm"
+
+- name: Создать конфиг Vector
+  template:
+    src: vector.toml.j2
+    dest: /etc/vector/vector.toml
+    mode: "0644"
+
+- name: Запустить Vector
+  service:
+    name: vector
+    enabled: true
+    state: started
+
+```
+6. `Также создам шаблон templates/vector.toml.j2 и вставлю туда`
+
+```
+[sources.my_source]
+type = "stdin"
+
+[sinks.my_sink]
+type = "console"
+inputs = ["my_source"]
+encoding.codec = "text"
+```
+
+7. ` Создаю роль LightHouse`
+```
+ansible-galaxy init lighthouse-role
+
+```
+
+8. ` `
+9. ` `
+
+
+
+
+
+
+
+
 
 ```
 Поле для вставки кода...

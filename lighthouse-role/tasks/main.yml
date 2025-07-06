@@ -1,0 +1,12 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for lighthouse-role
+- name: Установить git
+  yum:
+    name: git
+    state: present
+
+- name: Клонировать LightHouse
+  git:
+    repo: "https://github.com/VKCOM/lighthouse.git"
+    dest: "/var/www/lighthouse"
